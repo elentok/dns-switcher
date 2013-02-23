@@ -4,20 +4,14 @@ module.exports = class MacDnsSwitcher
   constructor: (options = {}) ->
     @options = options
 
-  resetDnsServers: ->
-    @setDnsServers()
-
-  resetSearchDomains: ->
-    @setSearchDomains()
-
   setDnsServers: (servers) ->
     servers = @_buildArgument(servers)
-    execSync.stdout(
+    console.log execSync.stdout(
       "sudo networksetup -setdnsservers #{@options.network_service} #{servers}")
 
   setSearchDomains: (domains) ->
     domains = @_buildArgument(domains)
-    execSync.stdout(
+    console.log execSync.stdout(
       "sudo networksetup -setsearchdomains #{@options.network_service} #{domains}")
 
   _buildArgument: (servers) ->

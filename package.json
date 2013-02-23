@@ -34,7 +34,8 @@
   "dependencies": {
     "nomnom": "1.5.x",
     "cli-color": "0.2.x",
-    "execSync": "0.0.x"
+    "execSync": "0.0.x",
+    "lodash": "1.0.x"
   },
   "devDependencies": {
     "coffee-script": "1.4.x",

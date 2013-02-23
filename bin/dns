@@ -1,0 +1,48 @@
+#!/usr/bin/env coffee
+
+_ = require 'lodash'
+nomnom = require 'nomnom'
+MacDnsSwitcher = require '../lib/mac_dns_switcher'
+Profile = require '../lib/profile'
+
+nomnom.colors()
+  .script('dns')
+
+nomnom.option 'list',
+  abbr: 'l'
+  flag: true
+  help: 'lists all dns profiles in ~/.dns.coffee and exits'
+  callback: ->
+    console.log Profile.getNames().join(' ')
+
+nomnom.option 'device',
+  abbr: 'd'
+  default: 'Wi-Fi'
+  help: 'the name of the network device'
+
+nomnom.option 'reset',
+  abbr: 'r'
+  flag: true
+  help: 'resets the dns profile'
+
+nomnom.option 'profile',
+  position: 0
+  help: 'the name of the dns profile'
+
+
+options = nomnom.parse()
+console.log options
+
+if options.reset
+  profile = new Profile()
+  switcher = new MacDnsSwitcher(network_service: options.device)
+  profile.activate(switcher)
+
+else if options.profile
+  profile = Profile.findByName(options.profile)
+  if profile?
+    switcher = new MacDnsSwitcher(network_service: options.device)
+    profile.activate(switcher)
+  else
+    console.log "Invalid profile '#{options.profile}'"
+
