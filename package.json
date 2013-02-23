@@ -1,0 +1,45 @@
+{
+  "name": "dns-switcher",
+  "description": "allows tailing remote files",
+  "version": "0.0.1",
+  "homepage": "https://github.com/elentok/dns-switcher",
+  "author": {
+    "name": "David Elentok",
+    "email": "3david@gmail.com",
+    "url": "http://www.elentok.com"
+  },
+  "bin": {
+    "dns": "./bin/dns"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/elentok/dns-switcher.git"
+  },
+  "bugs": {
+    "url": "https://github.com/elentok/dns-switcher/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/elentok/dns-switcher/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "lib/dns-switcher.coffee",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "mocha --compilers coffee:coffee-script --reporter spec"
+  },
+  "dependencies": {
+    "nomnom": "1.5.x",
+    "cli-color": "0.2.x"
+  },
+  "devDependencies": {
+    "coffee-script": "1.4.x",
+    "mocha": "1.8.x",
+    "chai": "1.5.x",
+    "sinon": "1.5.x",
+    "sinon-chai": "2.3.x"
+  }
+}
