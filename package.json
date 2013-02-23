@@ -33,13 +33,15 @@
   },
   "dependencies": {
     "nomnom": "1.5.x",
-    "cli-color": "0.2.x"
+    "cli-color": "0.2.x",
+    "execSync": "0.0.x"
   },
   "devDependencies": {
     "coffee-script": "1.4.x",
     "mocha": "1.8.x",
     "chai": "1.5.x",
     "sinon": "1.5.x",
-    "sinon-chai": "2.3.x"
+    "sinon-chai": "2.3.x",
+    "sandboxed-module": "0.2.x"
   }
 }
