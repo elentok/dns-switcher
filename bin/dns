@@ -31,18 +31,17 @@ nomnom.option 'profile',
 
 
 options = nomnom.parse()
-console.log options
+switcher = new MacDnsSwitcher(network_service: options.device)
 
 if options.reset
-  profile = new Profile()
-  switcher = new MacDnsSwitcher(network_service: options.device)
-  profile.activate(switcher)
+  switcher.activate({})
 
 else if options.profile
   profile = Profile.findByName(options.profile)
   if profile?
-    switcher = new MacDnsSwitcher(network_service: options.device)
-    profile.activate(switcher)
+    switcher.activate(profile)
   else
     console.log "Invalid profile '#{options.profile}'"
 
+
+switcher.showStatus()

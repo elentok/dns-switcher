@@ -2,30 +2,18 @@ fs = require 'fs'
 path = require 'path'
 _ = require 'lodash'
 
-module.exports = class Profile
-  constructor: (options = {}) ->
-    @nameservers = options.nameservers or null
-    @search_domains = options.search_domains or null
+module.exports =
+  _configPath: path.join(process.env['HOME'], '.dns.coffee')
 
-  activate: (switcher) ->
-    switcher.setDnsServers(@nameservers)
-    switcher.setSearchDomains(@search_domains)
+  getNames: ->
+    _.keys(@_getAll())
 
-Profile._configPath = path.join(process.env['HOME'], '.dns.coffee')
+  findByName: (name) ->
+    @_getAll()[name]
 
-Profile.getNames = ->
-  _.keys(@_all())
-
-Profile.findByName = (name) ->
-  attribs = @_all()[name]
-  if attribs?
-    new Profile(attribs)
-  else
-    null
-
-Profile._all = ->
-  if fs.existsSync(@_configPath)
-    require @_configPath
-  else
-    console.log "WARNING: ~/.dns.coffee doesn't exist"
-    {}
+  _getAll: ->
+    if fs.existsSync(@_configPath)
+      require @_configPath
+    else
+      console.log "WARNING: ~/.dns.coffee doesn't exist"
+      {}
