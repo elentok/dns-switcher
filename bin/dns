@@ -1,7 +1,7 @@
 #!/usr/bin/env coffee
 
-_ = require 'lodash'
 nomnom = require 'nomnom'
+clc = require 'cli-color'
 MacDnsSwitcher = require '../lib/mac_dns_switcher'
 Profile = require '../lib/profile'
 
@@ -34,14 +34,20 @@ options = nomnom.parse()
 switcher = new MacDnsSwitcher(network_service: options.device)
 
 if options.reset
+  console.log clc.green('Resetting...')
   switcher.activate({})
 
 else if options.profile
   profile = Profile.findByName(options.profile)
   if profile?
+    console.log clc.green("Loading profile '#{options.profile}'...")
     switcher.activate(profile)
   else
-    console.log "Invalid profile '#{options.profile}'"
+    console.log clc.red("Invalid profile '#{options.profile}'")
 
+unless options.list
+  console.log clc.blue('DNS Servers:')
+  console.log switcher.getDnsServers()
+  console.log clc.blue('DNS Search Domains:')
+  console.log switcher.getSearchDomains()
 
-switcher.showStatus()

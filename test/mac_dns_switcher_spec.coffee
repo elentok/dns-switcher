@@ -51,27 +51,17 @@ describe "MacDnsSwitcher", ->
         cmd = 'sudo networksetup -setsearchdomains Wi-Fi domain1 domain2'
         expect(execSync.stdout).to.have.been.calledWith(cmd)
 
-  describe "#showDnsServers", ->
+  describe "#getDnsServers", ->
     it "runs 'networksetup -getdnsservers {network_service}'", ->
-      @switcher.showDnsServers()
+      @switcher.getDnsServers()
       cmd = 'networksetup -getdnsservers Wi-Fi'
       expect(execSync.stdout).to.have.been.calledWith(cmd)
 
-  describe "#showSearchDomains", ->
+  describe "#getSearchDomains", ->
     it "runs 'networksetup -getsearchdomains {network_service}'", ->
-      @switcher.showSearchDomains()
+      @switcher.getSearchDomains()
       cmd = 'networksetup -getsearchdomains Wi-Fi'
       expect(execSync.stdout).to.have.been.calledWith(cmd)
-
-  describe "#showStatus", ->
-    it "calls showDnsServers and showSearchDomains", ->
-      switcher = new MacDnsSwitcher()
-      sinon.spy(switcher, 'showDnsServers')
-      sinon.spy(switcher, 'showSearchDomains')
-      switcher.showStatus()
-      expect(switcher.showDnsServers).to.have.been.called
-      expect(switcher.showSearchDomains).to.have.been.called
-
 
   describe "#activate(profile)", ->
     beforeEach ->

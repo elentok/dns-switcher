@@ -11,13 +11,19 @@ module.exports = class MacDnsSwitcher
 
   setDnsServers: (servers) ->
     servers = @_buildArgument(servers)
-    console.log execSync.stdout(
+    @_run(
       "sudo networksetup -setdnsservers #{@options.network_service} #{servers}")
 
   setSearchDomains: (domains) ->
     domains = @_buildArgument(domains)
-    console.log execSync.stdout(
+    @_run(
       "sudo networksetup -setsearchdomains #{@options.network_service} #{domains}")
+
+  _run: (cmd) ->
+    output = execSync.stdout(cmd)
+    if output? and output.trim().length > 0
+      console.log output
+    output
 
   _buildArgument: (servers) ->
     if servers? and servers.length
@@ -25,17 +31,11 @@ module.exports = class MacDnsSwitcher
     else
       'Empty'
 
-  showStatus: ->
-    console.log clc.blue('DNS Servers:')
-    @showDnsServers()
-    console.log clc.blue('Search Domains:')
-    @showSearchDomains()
-
-  showDnsServers: ->
-    console.log execSync.stdout(
+  getDnsServers: ->
+    execSync.stdout(
       "networksetup -getdnsservers #{@options.network_service}")
 
-  showSearchDomains: ->
-    console.log execSync.stdout(
+  getSearchDomains: ->
+    execSync.stdout(
       "networksetup -getsearchdomains #{@options.network_service}")
 
