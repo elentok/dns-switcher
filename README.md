@@ -1,9 +1,14 @@
 DNS Switcher
 ============
 
+[![Build Status](https://travis-ci.org/elentok/dns-switcher.png?branch=master)](https://travis-ci.org/elentok/dns-switcher)
+
 Quickly switch between DNS profiles
 
 (currently only supports Mac)
+
+Installation
+=============
 
 ```bash
 npm install -g dns-switcher
