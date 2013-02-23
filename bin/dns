@@ -1,5 +1,6 @@
 #!/usr/bin/env coffee
 
+path = require 'path'
 nomnom = require 'nomnom'
 clc = require 'cli-color'
 MacDnsSwitcher = require '../lib/mac_dns_switcher'
@@ -29,13 +30,27 @@ nomnom.option 'profile',
   position: 0
   help: 'the name of the dns profile'
 
+nomnom.option 'completions',
+  flag: true
+  help: "shows the completion code to add to .zshrc"
+  callback: ->
+    dir = path.resolve(path.join(__dirname, '..', 'completions'))
+    console.log "fpath=(#{dir} $fpath)"
+    console.log "compinit"
 
 options = nomnom.parse()
 switcher = new MacDnsSwitcher(network_service: options.device)
 
+showStatus = ->
+  console.log clc.blue('DNS Servers:')
+  console.log switcher.getDnsServers()
+  console.log clc.blue('DNS Search Domains:')
+  console.log switcher.getSearchDomains()
+
 if options.reset
   console.log clc.green('Resetting...')
   switcher.activate({})
+  showStatus()
 
 else if options.profile
   profile = Profile.findByName(options.profile)
@@ -44,10 +59,9 @@ else if options.profile
     switcher.activate(profile)
   else
     console.log clc.red("Invalid profile '#{options.profile}'")
+  showStatus()
 
-unless options.list
-  console.log clc.blue('DNS Servers:')
-  console.log switcher.getDnsServers()
-  console.log clc.blue('DNS Search Domains:')
-  console.log switcher.getSearchDomains()
+else
+  unless options.completions or options.list
+    showStatus()
 

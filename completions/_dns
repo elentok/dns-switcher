@@ -1,0 +1,17 @@
+#compdef dns
+
+_dns() {
+  local curcontext="$curcontext" state line
+  typeset -A opt_args
+
+  _arguments \
+    '1: :->command'
+
+  case $state in
+  command)
+    _arguments "1:Args:(`dns --list` --completions -l --list -r --reset -d --device)"
+    ;;
+  esac
+}
+
+_dns "$@"
