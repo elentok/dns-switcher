@@ -12,12 +12,12 @@ module.exports = class MacDnsSwitcher
   setDnsServers: (servers) ->
     servers = @_buildArgument(servers)
     @_run(
-      "sudo networksetup -setdnsservers #{@options.network_service} #{servers}")
+      "sudo networksetup -setdnsservers \"#{@options.network_service}\" #{servers}")
 
   setSearchDomains: (domains) ->
     domains = @_buildArgument(domains)
     @_run(
-      "sudo networksetup -setsearchdomains #{@options.network_service} #{domains}")
+      "sudo networksetup -setsearchdomains \"#{@options.network_service}\" #{domains}")
 
   _run: (cmd) ->
     output = execSync.stdout(cmd)
@@ -33,9 +33,9 @@ module.exports = class MacDnsSwitcher
 
   getDnsServers: ->
     execSync.stdout(
-      "networksetup -getdnsservers #{@options.network_service}")
+      "networksetup -getdnsservers \"#{@options.network_service}\"")
 
   getSearchDomains: ->
     execSync.stdout(
-      "networksetup -getsearchdomains #{@options.network_service}")
+      "networksetup -getsearchdomains \"#{@options.network_service}\"")
 
