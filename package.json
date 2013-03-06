@@ -1,6 +1,6 @@
 {
   "name": "dns-switcher",
-  "description": "allows tailing remote files",
+  "description": "Quickly switch between DNS profiles",
   "version": "0.0.2",
   "homepage": "https://github.com/elentok/dns-switcher",
   "author": {
